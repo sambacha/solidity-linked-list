@@ -103,24 +103,32 @@ library StructuredLinkedList {
     }
 
     /**
-     * @dev Checks if the list exists.
-     * @param self Stored linked list from contract.
-     * @return bool True if list exists, false otherwise.
+     * @dev Checks if the list exists
+     * @param self stored linked list from contract
+     * @return bool true if list exists, false otherwise
      */
     function listExists(List storage self) internal view returns (bool) {
-        // if the head node previous or next pointers both point to itself, then there are no items in the list
-        return (self.list[_HEAD][_PREV] != _HEAD || self.list[_HEAD][_NEXT] != _HEAD);
+        // if the head nodes previous or next pointers both point to itself, then there are no items in the list
+        if (self.list[_HEAD][_PREV] != _HEAD || self.list[_HEAD][_NEXT] != _HEAD) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * @dev Checks if the node exists.
-     * @param self Stored linked list from contract.
-     * @param _node A node to search for.
-     * @return bool True if node exists, false otherwise.
+     * @dev Checks if the node exists
+     * @param self stored linked list from contract
+     * @param _node a node to search for
+     * @return bool true if node exists, false otherwise
      */
     function nodeExists(List storage self, uint256 _node) internal view returns (bool) {
         if (self.list[_node][_PREV] == _HEAD && self.list[_node][_NEXT] == _HEAD) {
-            return (self.list[_HEAD][_NEXT] == _node);
+            if (self.list[_HEAD][_NEXT] == _node) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return true;
         }
